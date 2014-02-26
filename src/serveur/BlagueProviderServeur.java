@@ -8,8 +8,15 @@ package serveur;
 import blague.Blague;
 import codebase.BlagueProviderInterface;
 import exception.BlagueAbsenteException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import sun.rmi.server.Dispatcher;
 
 /**
  *
@@ -52,7 +59,7 @@ public class BlagueProviderServeur implements BlagueProviderInterface {
      * @return
      */
     @Override
-    public Blague getBlague(String nom) throws BlagueAbsenteException{
+    public Blague getBlague(String nom) throws BlagueAbsenteException {
         
         //On vérifie si la clé existe dans la hashmap
         if(listeBlagues.containsKey(nom)) {
@@ -64,6 +71,29 @@ public class BlagueProviderServeur implements BlagueProviderInterface {
             throw new BlagueAbsenteException();
         }
      
+        
+    }
+    
+    
+    /**
+     * Méthode principale, qui créer le serveur.
+     * 
+     * @param args 
+     */
+    public static void main(String[] args) {
+        try {
+            
+            //Création de l'objet
+            BlagueProviderServeur serveur = new BlagueProviderServeur();
+            
+            //Export
+            Registry r = LocateRegistry.getRegistry();
+            BlagueProviderInterface di = (BlagueProviderInterface)UnicastRemoteObject.exportObject(serveur, 0);     
+            r.rebind("BlagueProviderServeur", di);
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(BlagueProviderServeur.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

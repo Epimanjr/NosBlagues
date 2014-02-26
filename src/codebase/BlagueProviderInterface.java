@@ -9,6 +9,7 @@ package codebase;
 import blague.Blague;
 import exception.BlagueAbsenteException;
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.HashMap;
 
 /**
@@ -26,8 +27,9 @@ public interface BlagueProviderInterface extends Remote {
      * Méthode abstraite qui retourne toutes les blagues, juste le nom.
      * 
      * @return 
+     * @throws java.rmi.RemoteException 
      */
-    public String[] getAllNames();
+    public String[] getAllNames() throws RemoteException;
     
     /**
      * Méthode abstraite qui retourne un objet Blague à partir du nom.
@@ -35,7 +37,8 @@ public interface BlagueProviderInterface extends Remote {
      * @param nom
      * @return 
      * @throws exception.BlagueAbsenteException 
+     * @throws java.rmi.RemoteException 
      */
-    public Blague getBlague(String nom) throws BlagueAbsenteException;
+    public Blague getBlague(String nom) throws BlagueAbsenteException, RemoteException;
 }
     

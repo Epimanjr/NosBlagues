@@ -6,11 +6,13 @@
 
 package blague;
 
+import java.io.Serializable;
+
 /**
  * 
  * @author Maxime Blaise
  */
-public class Blague {
+public class Blague implements Serializable {
     
     /**
      * Nom de la blague.
