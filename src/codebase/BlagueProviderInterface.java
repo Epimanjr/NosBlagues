@@ -7,6 +7,7 @@
 package codebase;
 
 import blague.Blague;
+import exception.BlagueAbsenteException;
 import java.rmi.Remote;
 import java.util.HashMap;
 
@@ -33,7 +34,8 @@ public interface BlagueProviderInterface extends Remote {
      * 
      * @param nom
      * @return 
+     * @throws exception.BlagueAbsenteException 
      */
-    public Blague getBlague(String nom);
+    public Blague getBlague(String nom) throws BlagueAbsenteException;
 }
     
