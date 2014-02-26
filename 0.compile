@@ -1,0 +1,4 @@
+#!/bin/bash
+
+javac -cp "src" -d "build/classes" src/serveur/*.java
+javac -cp "src" -d "build/classes" src/client/*.java

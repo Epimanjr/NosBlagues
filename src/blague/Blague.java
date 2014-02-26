@@ -97,5 +97,24 @@ public class Blague implements Serializable {
     }
     
     
+    @Override
+    public String toString() {
+        String s = "\n~~ Blague #"+this.getNom()+"\n";
+        
+        s+= getColor(91) + this.getQuestion()+"\n" + getColor(0);
+        
+        s+= "\n\t\t\t\t-->"+getColor(92)+this.getReponse()+getColor(0) + "\n";
+                
+        return s;
+    }
     
+    /**
+     * Permet de colorer le terminal Linux.
+     *
+     * @param i
+     * @return
+     */
+    public static String getColor(int i) {
+        return "\033[" + i + "m";
+    }
 }

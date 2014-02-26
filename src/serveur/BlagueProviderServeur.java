@@ -16,13 +16,20 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sun.rmi.server.Dispatcher;
 
 /**
  *
  * @author Maxime Blaise
  */
 public class BlagueProviderServeur implements BlagueProviderInterface {
+    
+    /**
+     * Constructeur vide
+     */
+    public BlagueProviderServeur() {
+        //Remplissage de la liste avec quelques blagues par défaut
+        listeBlagues.put("max", new Blague("max", "Que dit un papier quand il ne noie ?", "Au secours, j'ai pas pied ! (papier)"));
+    }
 
     /**
      * Méthode abstraite qui retourne toutes les blagues, juste le nom.
@@ -91,10 +98,23 @@ public class BlagueProviderServeur implements BlagueProviderInterface {
             BlagueProviderInterface di = (BlagueProviderInterface)UnicastRemoteObject.exportObject(serveur, 0);     
             r.rebind("BlagueProviderServeur", di);
             
+            //Affichage
+            System.out.println(getColor(96) + "BlagueProviderServeur lancé !" + getColor(0));
+            
         } catch (RemoteException ex) {
             Logger.getLogger(BlagueProviderServeur.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+    }
+    
+    /**
+     * Permet de colorer le terminal Linux.
+     *
+     * @param i
+     * @return
+     */
+    public static String getColor(int i) {
+        return "\033[" + i + "m";
     }
 
 }

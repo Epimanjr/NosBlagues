@@ -6,9 +6,10 @@
 package client;
 
 import blague.Blague;
+import codebase.BlagueProviderClientInterface;
 import codebase.BlagueProviderInterface;
 import exception.BlagueAbsenteException;
-import java.rmi.AccessException;
+import static java.lang.System.exit;
 import java.rmi.NotBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -22,7 +23,7 @@ import java.util.logging.Logger;
  *
  * @author Maxime Blaise
  */
-public class BlagueProviderClient implements Remote {
+public class BlagueProviderClient implements BlagueProviderClientInterface {
 
     /**
      * Méthode principale du client
@@ -42,7 +43,7 @@ public class BlagueProviderClient implements Remote {
             BlagueProviderInterface proxy = (BlagueProviderInterface) registry.lookup("BlagueProviderServeur");
 
             //Export
-            BlagueProviderClient ri = (BlagueProviderClient) UnicastRemoteObject.exportObject(client, 0);
+            BlagueProviderClientInterface ri = (BlagueProviderClientInterface) UnicastRemoteObject.exportObject(client, 0);
             Registry r = LocateRegistry.getRegistry();
             r.rebind("Client", ri);
 
@@ -54,6 +55,7 @@ public class BlagueProviderClient implements Remote {
         }
     }
 
+    @Override
     public void afficheUneBlague(BlagueProviderInterface proxy) {
 
         try {
@@ -76,6 +78,8 @@ public class BlagueProviderClient implements Remote {
                 //Affichage
                 System.out.println(maBlague);
             }
+            
+            exit(1);
 
             
         } catch (RemoteException | BlagueAbsenteException ex) {
