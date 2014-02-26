@@ -7,7 +7,7 @@
 package blague;
 
 /**
- * @class Blague
+ * 
  * @author Maxime Blaise
  */
 public class Blague {
