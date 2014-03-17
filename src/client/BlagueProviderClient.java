@@ -6,16 +6,13 @@
 package client;
 
 import blague.Blague;
-import codebase.BlagueProviderClientInterface;
 import codebase.BlagueProviderInterface;
 import exception.BlagueAbsenteException;
 import static java.lang.System.exit;
 import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -23,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Maxime Blaise
  */
-public class BlagueProviderClient implements BlagueProviderClientInterface {
+public class BlagueProviderClient {
 
     /**
      * Méthode principale du client
@@ -43,9 +40,9 @@ public class BlagueProviderClient implements BlagueProviderClientInterface {
             BlagueProviderInterface proxy = (BlagueProviderInterface) registry.lookup("BlagueProviderServeur");
 
             //Export
-            BlagueProviderClientInterface ri = (BlagueProviderClientInterface) UnicastRemoteObject.exportObject(client, 0);
+            /*BlagueProviderClient ri = (BlagueProviderClient) UnicastRemoteObject.exportObject( client, 0);
             Registry r = LocateRegistry.getRegistry();
-            r.rebind("Client", ri);
+            r.rebind("Client",  ri);*/
 
             //Affichage d'une blague
             client.afficheUneBlague(proxy);
@@ -55,7 +52,7 @@ public class BlagueProviderClient implements BlagueProviderClientInterface {
         }
     }
 
-    @Override
+   
     public void afficheUneBlague(BlagueProviderInterface proxy) {
 
         try {

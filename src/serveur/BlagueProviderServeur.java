@@ -29,6 +29,7 @@ public class BlagueProviderServeur implements BlagueProviderInterface {
     public BlagueProviderServeur() {
         //Remplissage de la liste avec quelques blagues par défaut
         listeBlagues.put("max", new Blague("max", "Que dit un papier quand il ne noie ?", "Au secours, j'ai pas pied ! (papier)"));
+        listeBlagues.put("777avion", new Blague("777avion", "Pourquoi on ne retrouve pas le BOEING 777 ?", "Parce qu'il rebomdi , BOEING, BOEING, BOEING"));
     }
 
     /**
